@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru" class="no-js">
+  <head>
+  <meta charset="UTF-8">
+  <title>Типа конвектор</title>
+  <!-- <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png"> -->
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.cbr-xml-daily.ru/money.js"></script>
+</head>
+<body style="display: flex;
+justify-content: center;">
+<h1 style="position: absolute;
+top: 10%;
+font-size: 8vw;
+font-family: math;
+font-weight: bolder;">Типа конвектор</h1>
+  <div class="container"></div>
+  <div class="container2">
+    <div class="con21">
+      <div class="result"></div>
+      <input id="input" placeholder="15 usd in rub"></input>
+      <button type="submit" onclick="convert()">CONVERT</button>
+ 
+    </div>
+
+    <div class="con22">
+      <div class="res2">
+        <div id="USD">1 USD = 00,00 RUB</div>
+        <div id="EUR">1 EUR = 00,00 RUB</div>
+      </div>
+
+      <input id="input2" placeholder="rub">
+      <button type="submit" onclick="convert2()">CONVERT</button>
+    </div>
+    
+  </div>
+  <p style="position: absolute;
+  bottom: 0;
+  opacity: 0.5;
+  font-family: 'Segoe UI', sans-serif;">Данные составлены по курсу ЦБ РФ</p>
+    <script>
+      const convert2 = () => {
+        const text = document.querySelector('#input2').value.toUpperCase();
+        document.querySelector('#EUR').textContent = '1 EUR = ' + fx(1).from('EUR').to(text).toFixed(2) + ' ' + text
+        document.querySelector('#USD').textContent = '1 USD = ' + fx(1).from('USD').to(text).toFixed(2) + ' ' + text
+        console.log(divUSD)
+      }
+      
+      
+    </script>
+    <script>
+        const convert = () => {
+            // 15 usd in rub
+            const text = document.querySelector('input').value;
+            const splitedText = text.split(' ');
+            const value = Number(splitedText[0]);
+            const from = splitedText[1].toUpperCase();
+            const to = splitedText[3].toUpperCase();
+            document.querySelector('.result').textContent = fx(value).from(from).to(to).toFixed(2).replace('.', ',') + ' ' + splitedText[3].toUpperCase();
+            
+        }
+      
+    </script>
+    <script>
+        function CBR_XML_Daily_Ru(rates) {
+          var USDrate = rates.Valute.USD.Value.toFixed(2).replace('.', ',');
+          var USD = document.getElementById('USD');
+          USD.innerHTML = USD.innerHTML.replace('00,00', USDrate);
+        
+          var EURrate = rates.Valute.EUR.Value.toFixed(2).replace('.', ',');
+          var EUR = document.getElementById('EUR');
+          EUR.innerHTML = EUR.innerHTML.replace('00,00', EURrate);
+        }
+    </script>
+    <link rel="dns-prefetch" href="https://www.cbr-xml-daily.ru/money.js" />
+    <script src="//www.cbr-xml-daily.ru/daily_jsonp.js" async></script>
+</body>
